@@ -1,3 +1,3 @@
-# wazo-plugin-demo
+# Stack Plugin - Demo
 
-This is only for demonstration.
+This plugin adds an extension `***42` that says Hello World when called.
