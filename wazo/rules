@@ -11,7 +11,7 @@ case "$1" in
         cp etc/asterisk/extensions_extra.d/50-acd.conf "${pkgdir}/etc/asterisk/extensions_extra.d/"
 
         mkdir -p "${pkgdir}/etc/wazo-confd/conf.d"
-        cp etc/wazo-confd/conf.d/acd-queues.yml     "${pkgdir}/etc/wazo-confd/conf.d/"
+        # cp etc/wazo-confd/conf.d/acd-queues.yml     "${pkgdir}/etc/wazo-confd/conf.d/"
         # cp etc/wazo-confd/conf.d/acd-schedules.yml  "${pkgdir}/etc/wazo-confd/conf.d/"
 
         # mkdir -p "${pkgdir}/etc/wazo-webhookd/conf.d"
