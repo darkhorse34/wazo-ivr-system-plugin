@@ -2,11 +2,11 @@ name: wazo-call-distribution-plugin
 namespace: quintana
 version: 0.0.1
 author: Piotr
-display_name: Plugin Demo
+display_name: Plugin Call Distribution
 plugin_format_version: 1
-min_wazo_version: 21.07
+min_wazo_version: 25.02
 tags:
-  - community
+  - call_distribution
   - demo
 #depends:
 #  - name: foo
