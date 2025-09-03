@@ -1,14 +1,21 @@
 #!/bin/sh
 # Copyright 2021 Wazo Team (see the AUTHORS file)
 # SPDX-License-Identifier: GPLv3
-
+set -e
 case "$1" in
     build)
     ;;
 
     package)
         mkdir -p ${pkgdir}/etc/asterisk/extensions_extra.d
-        cp helloworld.conf ${pkgdir}/etc/asterisk/extensions_extra.d/
+        cp etc/asterisk/extensions_extra.d/50-acd.conf "${pkgdir}/etc/asterisk/extensions_extra.d/"
+
+        mkdir -p "${pkgdir}/etc/wazo-confd/conf.d"
+        cp etc/wazo-confd/conf.d/acd-queues.yml     "${pkgdir}/etc/wazo-confd/conf.d/"
+        cp etc/wazo-confd/conf.d/acd-schedules.yml  "${pkgdir}/etc/wazo-confd/conf.d/"
+
+        mkdir -p "${pkgdir}/etc/wazo-webhookd/conf.d"
+        cp etc/wazo-webhookd/conf.d/acd-webhooks.yml "${pkgdir}/etc/wazo-webhookd/conf.d/" || true
     ;;
 
     install)

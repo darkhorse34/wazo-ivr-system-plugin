@@ -1,0 +1,11 @@
+webhooks:
+  - name: acd-events
+    enabled: true
+    url: https://your-api.example.com/wazo/events
+    events:
+      - call_queued
+      - call_answered
+      - call_abandoned
+      - agent_paused
+      - agent_resumed
+    secret: "change-me"

@@ -1,0 +1,14 @@
+timeframes:
+  - name: business-hours
+    monday: ["09:00-17:30"]
+    tuesday: ["09:00-17:30"]
+    wednesday: ["09:00-17:30"]
+    thursday: ["09:00-17:30"]
+    friday: ["09:00-17:30"]
+
+routes:
+  - name: did-18005550100
+    match: "+18005550100"
+    open_timeframe: business-hours
+    open_destination: "Context(acd-entry,8001,1)"   # to support queue via acd-entry context
+    closed_destination: "Voicemail(1000@default,u)"

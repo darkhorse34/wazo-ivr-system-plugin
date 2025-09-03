@@ -1,0 +1,14 @@
+queues:
+  - name: support
+    strategy: leastrecent
+    service_level: 20
+    music_on_hold: default
+    timeout: 20
+    retry: 2
+    announce_frequency: 30
+  - name: sales
+    strategy: rrmemory
+    service_level: 20
+    music_on_hold: default
+    timeout: 20
+    retry: 2
