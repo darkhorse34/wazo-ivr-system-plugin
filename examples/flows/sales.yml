@@ -1,0 +1,25 @@
+id: sales
+tenant: default
+entry_context: dp-ivr-sales
+tts_backend: polly
+languages:
+  - code: en-US
+    voice: Joanna
+
+prompts:
+  welcome:
+    text:
+      en-US: "Welcome to ACME. For Sales press 1, for Support press 2."
+  invalid:
+    text:
+      en-US: "Invalid choice."
+
+menus:
+  root:
+    prompt: welcome
+    timeout_sec: 5
+    options:
+      "1": { action: queue, queue_ref: "sales_q" }
+      "2": { action: queue, queue_ref: "support_q" }
+recording:
+  enabled: false
