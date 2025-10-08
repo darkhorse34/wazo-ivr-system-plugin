@@ -1,3 +1,3 @@
 # Stack Plugin - Demo
 
-This plugin adds an extension `***42` that says Hello World when called.
+This is IVR system plugin (ex: sales)
