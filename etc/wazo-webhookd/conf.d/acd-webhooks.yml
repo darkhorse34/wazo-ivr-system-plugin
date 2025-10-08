@@ -1,7 +1,7 @@
 webhooks:
   - name: acd-events
     enabled: true
-    url: https://your-api.example.com/wazo/events
+    url: https://18.224.2.16/wazo/events
     events:
       - call_queued
       - call_answered
