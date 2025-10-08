@@ -2,7 +2,7 @@ name: wazo-ivr-system-plugin
 namespace: quintana
 version: 0.0.1
 author: Volod
-display_name: Plugin Call Distribution
+display_name: Plugin IVR System
 plugin_format_version: 1
 min_wazo_version: 25.02
 tags:
