@@ -43,7 +43,7 @@ A comprehensive IVR (Interactive Voice Response) system plugin for Wazo UC platf
 
 ```bash
 # Download and run the installation script
-curl -sSL https://raw.githubusercontent.com/darkhorse34/wazo-ivr-system-plugin/main/install.sh | sudo bash
+curl -sSL https://raw.github.com/darkhorse34/wazo-ivr-system-plugin/main/install.sh | sudo bash
 ```
 
 ### Manual Installation
