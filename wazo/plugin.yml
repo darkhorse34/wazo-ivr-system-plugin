@@ -1,16 +1,36 @@
 name: wazo-ivr-system-plugin
 namespace: quintana
-version: 0.0.1
+version: 1.0.0
 author: Volod
-display_name: Plugin IVR System
+display_name: Advanced IVR System Plugin
 plugin_format_version: 1
-min_wazo_version: 25.02
+min_wazo_version: 22.0
 tags:
   - ivr-system-plugin
-  - demo
-#depends:
-#  - name: foo
-#    namespace: foocorp
+  - telephony
+  - voice
+  - tts
+  - polly
+depends:
+  - name: wazo-calld
+    namespace: wazo
+  - name: wazo-confd
+    namespace: wazo
+  - name: wazo-dird
+    namespace: wazo
 debian_depends:
-  - vim
+  - python3-boto3
+  - python3-flask
+  - python3-requests
+  - python3-yaml
+  - python3-jinja2
+  - flite
+  - sox
+  - asterisk
+  - wazo-calld
+  - wazo-confd
+  - wazo-dird
 homepage: https://github.com/darkhosre34/wazo-ivr-system-plugin
+description: |
+  Advanced IVR system plugin for Wazo with support for multi-level menus,
+  Amazon Polly TTS, business hours routing, queue integration, and REST API.

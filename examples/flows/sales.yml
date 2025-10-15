@@ -5,21 +5,188 @@ tts_backend: polly
 languages:
   - code: en-US
     voice: Joanna
+  - code: es-US
+    voice: Lupe
+  - code: fr-FR
+    voice: Celine
 
 prompts:
   welcome:
     text:
-      en-US: "Welcome to ACME. For Sales press 1, for Support press 2."
+      en-US: "Welcome to ACME Corporation. For Sales press 1, for Support press 2, for Billing press 3, for Language Selection press 0."
+      es-US: "Bienvenido a ACME Corporation. Para Ventas presione 1, para Soporte presione 2, para Facturación presione 3, para Selección de Idioma presione 0."
+      fr-FR: "Bienvenue chez ACME Corporation. Pour les Ventes appuyez sur 1, pour le Support appuyez sur 2, pour la Facturation appuyez sur 3, pour la Sélection de Langue appuyez sur 0."
+  
+  sales_menu:
+    text:
+      en-US: "You have reached the Sales department. For New Sales press 1, for Existing Customer Support press 2, to speak with a Sales Manager press 3, or press 0 to return to the main menu."
+      es-US: "Ha llegado al departamento de Ventas. Para Nuevas Ventas presione 1, para Soporte de Cliente Existente presione 2, para hablar con un Gerente de Ventas presione 3, o presione 0 para volver al menú principal."
+      fr-FR: "Vous avez atteint le département des Ventes. Pour les Nouvelles Ventes appuyez sur 1, pour le Support Client Existant appuyez sur 2, pour parler avec un Directeur des Ventes appuyez sur 3, ou appuyez sur 0 pour retourner au menu principal."
+  
+  support_menu:
+    text:
+      en-US: "You have reached the Support department. For Technical Support press 1, for Account Issues press 2, for Billing Questions press 3, or press 0 to return to the main menu."
+      es-US: "Ha llegado al departamento de Soporte. Para Soporte Técnico presione 1, para Problemas de Cuenta presione 2, para Preguntas de Facturación presione 3, o presione 0 para volver al menú principal."
+      fr-FR: "Vous avez atteint le département Support. Pour le Support Technique appuyez sur 1, pour les Problèmes de Compte appuyez sur 2, pour les Questions de Facturation appuyez sur 3, ou appuyez sur 0 pour retourner au menu principal."
+  
+  billing_menu:
+    text:
+      en-US: "You have reached the Billing department. For Payment Questions press 1, for Invoice Issues press 2, for Refund Requests press 3, or press 0 to return to the main menu."
+      es-US: "Ha llegado al departamento de Facturación. Para Preguntas de Pago presione 1, para Problemas de Factura presione 2, para Solicitudes de Reembolso presione 3, o presione 0 para volver al menú principal."
+      fr-FR: "Vous avez atteint le département Facturation. Pour les Questions de Paiement appuyez sur 1, pour les Problèmes de Facture appuyez sur 2, pour les Demandes de Remboursement appuyez sur 3, ou appuyez sur 0 pour retourner au menu principal."
+  
+  language_prompt:
+    text:
+      en-US: "Please select your language. For English press 1, for Spanish press 2, for French press 3."
+      es-US: "Por favor seleccione su idioma. Para Inglés presione 1, para Español presione 2, para Francés presione 3."
+      fr-FR: "Veuillez sélectionner votre langue. Pour l'Anglais appuyez sur 1, pour l'Espagnol appuyez sur 2, pour le Français appuyez sur 3."
+  
+  language_confirmed:
+    text:
+      en-US: "Language set to English. Please hold while we transfer you."
+      es-US: "Idioma establecido en Español. Por favor espere mientras lo transferimos."
+      fr-FR: "Langue définie en Français. Veuillez patienter pendant que nous vous transférons."
+  
+  after_hours:
+    text:
+      en-US: "Thank you for calling ACME Corporation. Our offices are currently closed. Our business hours are Monday through Friday, 9 AM to 5 PM Eastern Time. Please leave a message after the tone, and we will return your call during business hours."
+      es-US: "Gracias por llamar a ACME Corporation. Nuestras oficinas están actualmente cerradas. Nuestro horario de atención es de lunes a viernes, de 9 AM a 5 PM hora del Este. Por favor deje un mensaje después del tono, y le devolveremos la llamada durante el horario de atención."
+      fr-FR: "Merci d'avoir appelé ACME Corporation. Nos bureaux sont actuellement fermés. Nos heures d'ouverture sont du lundi au vendredi, de 9h à 17h heure de l'Est. Veuillez laisser un message après le signal, et nous vous rappellerons pendant les heures d'ouverture."
+  
   invalid:
     text:
-      en-US: "Invalid choice."
+      en-US: "Invalid choice. Please try again."
+      es-US: "Opción inválida. Por favor intente de nuevo."
+      fr-FR: "Choix invalide. Veuillez réessayer."
+  
+  goodbye:
+    text:
+      en-US: "Thank you for calling ACME Corporation. Have a great day!"
+      es-US: "Gracias por llamar a ACME Corporation. ¡Que tenga un buen día!"
+      fr-FR: "Merci d'avoir appelé ACME Corporation. Passez une excellente journée!"
 
 menus:
   root:
+    id: root
     prompt: welcome
-    timeout_sec: 5
+    timeout_sec: 10
+    max_retries: 3
     options:
-      "1": { action: queue, queue_ref: "sales_q" }
-      "2": { action: queue, queue_ref: "support_q" }
+      "1": 
+        action: menu
+        menu_ref: sales_menu
+      "2": 
+        action: menu
+        menu_ref: support_menu
+      "3": 
+        action: menu
+        menu_ref: billing_menu
+      "0": 
+        action: menu
+        menu_ref: language_selection
+    fallback_action: voicemail
+  
+  sales_menu:
+    id: sales_menu
+    prompt: sales_menu
+    timeout_sec: 8
+    max_retries: 2
+    parent_menu: root
+    options:
+      "1": 
+        action: queue
+        queue_ref: new_sales_q
+      "2": 
+        action: queue
+        queue_ref: existing_customer_q
+      "3": 
+        action: queue
+        queue_ref: sales_manager_q
+      "0": 
+        action: menu
+        menu_ref: root
+    fallback_action: queue
+  
+  support_menu:
+    id: support_menu
+    prompt: support_menu
+    timeout_sec: 8
+    max_retries: 2
+    parent_menu: root
+    options:
+      "1": 
+        action: queue
+        queue_ref: technical_support_q
+      "2": 
+        action: queue
+        queue_ref: account_issues_q
+      "3": 
+        action: menu
+        menu_ref: billing_menu
+      "0": 
+        action: menu
+        menu_ref: root
+    fallback_action: queue
+  
+  billing_menu:
+    id: billing_menu
+    prompt: billing_menu
+    timeout_sec: 8
+    max_retries: 2
+    parent_menu: root
+    options:
+      "1": 
+        action: queue
+        queue_ref: payment_questions_q
+      "2": 
+        action: queue
+        queue_ref: invoice_issues_q
+      "3": 
+        action: queue
+        queue_ref: refund_requests_q
+      "0": 
+        action: menu
+        menu_ref: root
+    fallback_action: voicemail
+  
+  language_selection:
+    id: language_selection
+    prompt: language_prompt
+    timeout_sec: 10
+    max_retries: 2
+    parent_menu: root
+    options:
+      "1": 
+        action: language
+        language: en-US
+        prompt: language_confirmed
+      "2": 
+        action: language
+        language: es-US
+        prompt: language_confirmed
+      "3": 
+        action: language
+        language: fr-FR
+        prompt: language_confirmed
+    fallback_action: menu
+
+business_hours:
+  name: business-hours
+  timeframes:
+    monday: ["09:00-17:00"]
+    tuesday: ["09:00-17:00"]
+    wednesday: ["09:00-17:00"]
+    thursday: ["09:00-17:00"]
+    friday: ["09:00-17:00"]
+  timezone: "America/New_York"
+
+voicemail_fallback: "1000"
+
+call_recording:
+  enabled: true
+  format: "wav"
+
 recording:
-  enabled: false
+  enabled: true
+
+max_call_duration: 600
