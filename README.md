@@ -43,7 +43,7 @@ A comprehensive IVR (Interactive Voice Response) system plugin for Wazo UC platf
 
 ```bash
 # Download and run the installation script
-curl -sSL https://raw.github.com/darkhorse34/wazo-ivr-system-plugin/main/install.sh | sudo bash
+curl -sSL https://github.com/darkhorse34/wazo-ivr-system-plugin/main/install.sh | sudo bash
 ```
 
 ### Manual Installation
@@ -415,32 +415,3 @@ curl http://localhost:5000/api/ivr/status
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Support
-
-- **Documentation**: [GitHub Wiki](https://github.com/your-repo/wazo-ivr-system-plugin/wiki)
-- **Issues**: [GitHub Issues](https://github.com/your-repo/wazo-ivr-system-plugin/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/your-repo/wazo-ivr-system-plugin/discussions)
-
-## Changelog
-
-### Version 1.0.0
-- Initial release
-- Multi-level IVR menus
-- Amazon Polly and local TTS support
-- Business hours routing
-- Multi-language support
-- REST API
-- Wazo integration
-- Call recording
-- Fallback handling
-
-## Roadmap
-
-- [ ] Web GUI for flow configuration
-- [ ] Speech-to-text support
-- [ ] Advanced analytics and reporting
-- [ ] Docker containerization
-- [ ] Kubernetes deployment support
-- [ ] Advanced call routing algorithms
-- [ ] Integration with external CRMs
